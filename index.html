@@ -39,23 +39,21 @@ body{
 }
 .avatar img{width:100%;height:100%;object-fit:cover;border-radius:999px}
 
-.title{font-size:1.5rem;font-weight:700;margin-bottom:10px}
+.title{font-size:1.5rem;font-weight:700;margin-bottom:8px}
 
-.list{margin-top:12px}
-.list-item{
+.subtitle{
   font-size:.95rem;
-  opacity:.95;
-  margin-bottom:12px;
+  opacity:.9;
+  margin-bottom:14px;
 }
 
 .divider{
   width:100%;
   height:1px;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
-  margin:12px 0;
+  margin:14px 0;
 }
 
-.cta{margin-top:10px}
 .cta-btn{
   display:inline-block;
   width:100%;
@@ -69,13 +67,6 @@ body{
   text-decoration:none;
   color:#fff;
 }
-.cta-btn.no{
-  background:#2a2a2a;
-  box-shadow:none;
-  margin-top:10px;
-}
-
-.hidden{display:none}
 
 .tagline{
   margin-top:16px;
@@ -96,7 +87,7 @@ footer a{
 }
 </style>
 
-<!-- META PIXEL (ONLY PAGEVIEW) -->
+<!-- ✅ META PIXEL (PAGEVIEW ONLY) -->
 <script>
 !function(f,b,e,v,n,t,s){
  if(f.fbq)return;
@@ -111,9 +102,15 @@ footer a{
  s.parentNode.insertBefore(t,s)
 }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-fbq('init','YOUR_PIXEL_ID_HERE');
+fbq('init','PASTE_YOUR_PIXEL_ID');   // 👈 YAHAN PIXEL ID DALO
 fbq('track','PageView');
 </script>
+
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=PASTE_YOUR_PIXEL_ID&ev=PageView&noscript=1"/>
+</noscript>
+<!-- END META PIXEL -->
 
 </head>
 
@@ -127,38 +124,19 @@ fbq('track','PageView');
 
   <h1 class="title">PANKAJ BHARDWAJ</h1>
 
-  <!-- QUESTION STEP -->
-  <div class="list" id="questionStep">
-    <div class="list-item">
-      Do you want to receive <b>educational market analysis</b>
-      on Telegram?
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="cta">
-      <div class="cta-btn" id="yesBtn">YES, CONTINUE</div>
-      <div class="cta-btn no" id="noBtn">NO, EXIT</div>
-    </div>
+  <div class="subtitle">
+    Educational market analysis • No tips • No guarantees
   </div>
 
-  <!-- TELEGRAM STEP -->
-  <div class="list hidden" id="telegramStep">
-    <div class="list-item">
-      Click below to join the official Telegram learning community
-    </div>
+  <div class="divider"></div>
 
-    <div class="divider"></div>
-
-    <div class="cta">
-      <a class="cta-btn"
-         id="tgBtn"
-         href="https://telegram.me/+7nycJCJrxLdiZGI1"
-         rel="noopener">
-        JOIN TELEGRAM
-      </a>
-    </div>
-  </div>
+  <!-- DIRECT TELEGRAM CTA -->
+  <a class="cta-btn"
+     id="tgBtn"
+     href="https://telegram.me/+7nycJCJrxLdiZGI1"
+     rel="noopener">
+    JOIN TELEGRAM
+  </a>
 
   <p class="tagline">
     नियत अच्छी और मेहनत सच्ची हो, तो कामयाबी जरूर मिलती है।
@@ -177,20 +155,7 @@ fbq('track','PageView');
 <script>
 let locked = false;
 
-// YES → show Telegram step (one-time only)
-document.getElementById("yesBtn").onclick = ()=>{
-  if(locked) return;
-  locked = true;
-  document.getElementById("questionStep").classList.add("hidden");
-  document.getElementById("telegramStep").classList.remove("hidden");
-};
-
-// NO → silent exit
-document.getElementById("noBtn").onclick = ()=>{
-  window.location.href = "https://google.com";
-};
-
-// Telegram click → safe redirect (no event firing)
+// SAFE REDIRECT (double-click block)
 document.getElementById("tgBtn").addEventListener("click",(e)=>{
   e.preventDefault();
   if(locked) return;
