@@ -1,9 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pankaj Bhardwaj | Educational Access</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{
+  background:#030709;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+  color:#fff;
+}
+.card{
+  background:linear-gradient(145deg,#040b10,#020406);
+  border:1px solid rgba(0,255,255,.25);
+  border-radius:26px;
+  box-shadow:0 0 22px rgba(0,255,255,.35), inset 0 0 12px rgba(0,255,255,.15);
+  padding:26px;
+  max-width:420px;
+  width:100%;
+  text-align:center;
+}
+.avatar{
+  width:110px;height:110px;
+  border-radius:999px;
+  border:3px solid #00e6ff;
+  padding:4px;
+  margin:-50px auto 12px;
+  background:#000;
+  overflow:hidden;
+}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:999px}
+
+.title{font-size:1.5rem;font-weight:700;margin-bottom:10px}
+
+.list{margin-top:12px}
+.list-item{
+  font-size:.95rem;
+  opacity:.95;
+  margin-bottom:12px;
+}
+
+.divider{
+  width:100%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  margin:12px 0;
+}
+
+.cta{margin-top:10px}
+.cta-btn{
+  display:inline-block;
+  width:100%;
+  background:linear-gradient(135deg,#30eaff,#8c4dff);
+  padding:14px;
+  border-radius:999px;
+  font-weight:700;
+  letter-spacing:.4px;
+  cursor:pointer;
+  box-shadow:0 14px 26px rgba(88,0,255,.45),0 0 24px rgba(0,255,255,.5);
+  text-decoration:none;
+  color:#fff;
+}
+.cta-btn.no{
+  background:#2a2a2a;
+  box-shadow:none;
+  margin-top:10px;
+}
+
+.hidden{display:none}
+
+.tagline{
+  margin-top:16px;
+  font-size:.85rem;
+  opacity:.85;
+}
+
+footer{
+  font-size:.72rem;
+  opacity:.7;
+  margin-top:10px;
+  line-height:1.4;
+}
+footer a{
+  color:#9feeff;
+  text-decoration:none;
+  margin:0 4px;
+}
+</style>
+
+<!-- META PIXEL (ONLY PAGEVIEW) -->
+<script>
+!function(f,b,e,v,n,t,s){
+ if(f.fbq)return;
+ n=f.fbq=function(){n.callMethod?
+ n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+ if(!f._fbq)f._fbq=n;
+ n.push=n;n.loaded=!0;n.version='2.0';
+ n.queue=[];
+ t=b.createElement(e);t.async=!0;
+ t.src=v;
+ s=b.getElementsByTagName(e)[0];
+ s.parentNode.insertBefore(t,s)
+}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init','YOUR_PIXEL_ID_HERE');
+fbq('track','PageView');
+</script>
+
+</head>
+
 <body>
 
 <div class="card">
 
   <div class="avatar">
-    <img src="pankaj.jpeg" alt="Profile" />
+    <img src="pankaj.jpeg" alt="Profile">
   </div>
 
   <h1 class="title">PANKAJ BHARDWAJ</h1>
@@ -11,7 +130,7 @@
   <!-- QUESTION STEP -->
   <div class="list" id="questionStep">
     <div class="list-item">
-      Do you want to receive <strong>educational market analysis</strong>
+      Do you want to receive <b>educational market analysis</b>
       on Telegram?
     </div>
 
@@ -19,17 +138,12 @@
 
     <div class="cta">
       <div class="cta-btn" id="yesBtn">YES, CONTINUE</div>
-    </div>
-
-    <div class="cta" style="margin-top:8px;">
-      <div class="cta-btn" id="noBtn" style="background:#444;box-shadow:none;">
-        NO, EXIT
-      </div>
+      <div class="cta-btn no" id="noBtn">NO, EXIT</div>
     </div>
   </div>
 
   <!-- TELEGRAM STEP -->
-  <div class="list" id="telegramStep" style="display:none;">
+  <div class="list hidden" id="telegramStep">
     <div class="list-item">
       Click below to join the official Telegram learning community
     </div>
@@ -40,7 +154,7 @@
       <a class="cta-btn"
          id="tgBtn"
          href="https://telegram.me/+7nycJCJrxLdiZGI1"
-         target="_self">
+         rel="noopener">
         JOIN TELEGRAM
       </a>
     </div>
@@ -55,30 +169,35 @@
     <a href="https://elitepips.online/privacy/" target="_blank">Privacy</a> |
     <a href="https://elitepips.online/disclaimer/" target="_blank">Disclaimer</a>
     <br><br>
-    This site is not part of Facebook™️ or endorsed by Facebook™️.
+    This site is not part of Facebook™ or endorsed by Facebook™.
   </footer>
 
 </div>
 
 <script>
-// YES → show Telegram step
+let locked = false;
+
+// YES → show Telegram step (one-time only)
 document.getElementById("yesBtn").onclick = ()=>{
-  document.getElementById("questionStep").style.display = "none";
-  document.getElementById("telegramStep").style.display = "block";
+  if(locked) return;
+  locked = true;
+  document.getElementById("questionStep").classList.add("hidden");
+  document.getElementById("telegramStep").classList.remove("hidden");
 };
 
-// NO → exit
+// NO → silent exit
 document.getElementById("noBtn").onclick = ()=>{
-  alert("This access is only for interested users.");
   window.location.href = "https://google.com";
 };
 
-// OPTIONAL: Subscribe event on Telegram click
-document.getElementById("tgBtn").addEventListener("click", ()=>{
-  try{
-    fbq('track','Subscribe');
-  }catch(e){}
+// Telegram click → safe redirect (no event firing)
+document.getElementById("tgBtn").addEventListener("click",(e)=>{
+  e.preventDefault();
+  if(locked) return;
+  locked = true;
+  window.location.href = e.currentTarget.href;
 });
 </script>
 
 </body>
+</html>
